@@ -7,11 +7,13 @@ import (
 	"net/http"
 )
 
+// Create Server object and start Listener
 func main(){
 	logrus.SetLevel(logrus.DebugLevel)
 
 	logrus.WithField("version", config.Version).Debug("starting server.")
 
+	//Creating new router
 	router, err := api.NewRouter()
 	if err != nil {
 		logrus.WithError(err).Fatal("Error building router")
@@ -23,6 +25,7 @@ func main(){
 		Addr: addr,
 	}
 
+	// Starting Server
 	if err := server.ListenAndServe(); err != http.ErrServerClosed{
 		logrus.WithError(err).Error("Server failed")
 	}
